@@ -718,7 +718,7 @@ img {
     .invitation-card { min-height: 440px; }
 
     /* Timeline compact on tablet */
-    .tl-item { grid-template-columns: 1fr 16px 80px; }
+    .tl-item { grid-template-columns: 1fr 16px 1fr; }
 }
 
 /* ─── RESPONSIVE: MOBILE 480px ─────────────────── */
@@ -737,8 +737,9 @@ img {
     }
 
     /* Timeline: simplify columns */
-    .tl-item { grid-template-columns: 1fr 14px 70px; gap: 0.4rem; }
+    .tl-item { grid-template-columns: 1fr 14px 1fr; gap: 0.4rem; }
     .tl-left svg { width: 15px; height: 15px; }
+    .tl-right { white-space: nowrap; }
 
     /* Dresscode figures scale down */
     .dresscode-figures { gap: 1.5rem; }
@@ -755,5 +756,5 @@ img {
     .hero-name { font-size: 3rem; }
     .countdown-box { width: 58px; height: 58px; }
     .countdown-number { font-size: 1.3rem; }
-    .tl-item { grid-template-columns: 1fr 12px 62px; }
+    .tl-item { grid-template-columns: 1fr 12px 1fr; }
 }
