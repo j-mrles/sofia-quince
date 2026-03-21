@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sofía Guadalupe — XV Años</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cormorant+SC:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:    #08070b;
+            --bg2:   #0e0c12;
+            --gold:  #c9a55a;
+            --gold2: #e8c87a;
+            --ivory: #f0eadc;
+            --dim:   rgba(240,234,220,0.45);
+            --faint: rgba(240,234,220,0.12);
+            --C:     'Cormorant Garamond', Georgia, serif;
+            --CS:    'Cormorant SC', Georgia, serif;
+            --DM:    'DM Sans', system-ui, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--ivory);
+            font-family: var(--DM);
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        img { display: block; max-width: 100%; }
+
+        /* ── FLOATING BACK BUTTON ────────────────────── */
+        .float-back {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            background: var(--ivory);
+            color: var(--bg);
+            font-family: var(--CS);
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-decoration: none;
+            padding: 0.7rem 1.3rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .float-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 28px rgba(0,0,0,0.6);
+            background: var(--gold2);
+        }
+        .float-back:active { transform: translateY(0); }
+
+        /* ── HERO ────────────────────────────────────── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(6rem, 12vw, 10rem) clamp(1.5rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 70% at 85% 40%, rgba(201,165,90,0.055) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 50% at 10% 90%, rgba(201,165,90,0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Decorative large number */
+        .hero-deco {
+            position: absolute;
+            right: -0.05em;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--C);
+            font-weight: 300;
+            font-size: clamp(18rem, 40vw, 52rem);
+            line-height: 1;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(201,165,90,0.06);
+            pointer-events: none;
+            user-select: none;
+            letter-spacing: -0.04em;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--CS);
+            font-size: clamp(0.58rem, 1.4vw, 0.72rem);
+            font-weight: 300;
+            letter-spacing: 0.5em;
+            color: var(--gold);
+            margin-bottom: clamp(1.2rem, 3vw, 2rem);
+            opacity: 0;
+            animation: fadeUp 0.8s 0.3s ease forwards;
+        }
+
+        .hero-name {
+            font-family: var(--C);
+            font-weight: 300;
+            font-size: clamp(4rem, 13vw, 13rem);
+            line-height: 0.88;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeUp 1s 0.55s ease forwards;
+        }
+
+        .hero-name .line-1 { color: var(--ivory); display: block; }
+        .hero-name .line-2 {
+            display: block;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--gold);
+        }
+
+        .hero-sub {
+            margin-top: clamp(1.5rem, 4vw, 3rem);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            opacity: 0;
+            animation: fadeUp 0.8s 1s ease forwards;
+        }
+
+        .hero-rule {
+            flex: 0 0 clamp(30px, 6vw, 70px);
+            height: 1px;
+            background: linear-gradient(to right, var(--gold), transparent);
+        }
+
+        .hero-sub-text {
+            font-family: var(--CS);
+            font-size: clamp(0.6rem, 1.4vw, 0.75rem);
+            letter-spacing: 0.35em;
+            color: var(--dim);
+        }
+
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 2.2rem;
+            right: clamp(1.5rem, 4vw, 4rem);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            opacity: 0;
+            animation: fadeUp 0.8s 1.4s ease forwards;
+        }
+
+        .hero-scroll-hint span {
+            font-family: var(--CS);
+            font-size: 0.55rem;
+            letter-spacing: 0.35em;
+            color: var(--dim);
+            writing-mode: vertical-rl;
+        }
+
+        .scroll-bar {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: pulseBar 2.2s ease-in-out infinite;
+        }
+
+        @keyframes pulseBar {
+            0%,100% { opacity: 0.35; }
+            50%      { opacity: 0.9; }
+        }
+
+        /* ── MARQUEE ─────────────────────────────────── */
+        .marquee {
+            border-top: 1px solid rgba(201,165,90,0.18);
+            border-bottom: 1px solid rgba(201,165,90,0.18);
+            background: rgba(201,165,90,0.03);
+            padding: 0.85rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-track {
+            display: inline-flex;
+            animation: scroll 24s linear infinite;
+        }
+
+        .marquee-track span {
+            font-family: var(--CS);
+            font-size: clamp(0.58rem, 1.2vw, 0.68rem);
+            letter-spacing: 0.4em;
+            color: var(--gold);
+            padding: 0 1.8rem;
+        }
+
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        /* ── SHARED ──────────────────────────────────── */
+        .section-eyebrow {
+            font-family: var(--CS);
+            font-size: 0.6rem;
+            letter-spacing: 0.45em;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-heading {
+            font-family: var(--C);
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+            color: var(--ivory);
+            line-height: 1.1;
+        }
+
+        .sep-line {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.4;
+            margin: 1.2rem 0;
+        }
+
+        .border-top { border-top: 1px solid var(--faint); }
+
+        /* ── QUOTE ───────────────────────────────────── */
+        .quote-section {
+            padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 10vw, 14rem);
+            position: relative;
+        }
+
+        .quote-deco {
+            position: absolute;
+            top: 2rem;
+            left: clamp(1rem, 8vw, 11rem);
+            font-family: var(--C);
+            font-size: clamp(5rem, 14vw, 11rem);
+            line-height: 0.6;
+            color: var(--gold);
+            opacity: 0.1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .quote-body {
+            font-family: var(--C);
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(1.5rem, 3.8vw, 2.8rem);
+            line-height: 1.5;
+            color: var(--ivory);
+            position: relative;
+            z-index: 1;
+            max-width: 820px;
+        }
+
+        /* ── COUNTDOWN ───────────────────────────────── */
+        .countdown-section {
+            padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 6vw, 5rem);
+        }
+
+        .cd-grid {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: clamp(0.8rem, 3vw, 3.5rem);
+            flex-wrap: wrap;
+        }
+
+        .cd-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .cd-num {
+            font-family: var(--C);
+            font-weight: 300;
+            font-size: clamp(3.5rem, 11vw, 8.5rem);
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: var(--ivory);
+        }
+
+        .cd-sep {
+            font-family: var(--C);
+            font-weight: 300;
+            font-size: clamp(2rem, 6vw, 4rem);
+            color: var(--gold);
+            opacity: 0.25;
+            padding-bottom: 1.2rem;
+        }
+
+        .cd-unit {
+            font-family: var(--CS);
+            font-size: 0.58rem;
+            letter-spacing: 0.3em;
+            color: var(--dim);
+        }
+
+        /* ── FAMILY ──────────────────────────────────── */
+        .family-section {
+            padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 6vw, 7rem);
+            align-items: center;
+        }
+
+        .family-initial {
+            font-family: var(--C);
+            font-weight: 300;
+            font-size: clamp(9rem, 22vw, 20rem);
+            line-height: 0.85;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(201,165,90,0.22);
+            user-select: none;
+        }
+
+        .family-content { display: flex; flex-direction: column; gap: 1.8rem; }
+
+        .family-name {
+            font-family: var(--C);
+            font-weight: 300;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.05;
+            color: var(--ivory);
+        }
+
+        .family-group { display: flex; flex-direction: column; gap: 0.3rem; }
+
+        .family-role {
+            font-family: var(--CS);
+            font-size: 0.58rem;
+            letter-spacing: 0.38em;
+            color: var(--dim);
+        }
+
+        .family-names {
+            font-family: var(--C);
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(1rem, 2.5vw, 1.45rem);
+            color: var(--ivory);
+            line-height: 1.55;
+        }
+
+        /* ── GALLERY ─────────────────────────────────── */
+        .gallery-section { padding: clamp(1.5rem, 4vw, 3rem) 0; }
+
+        .gallery-label {
+            padding: 0 clamp(1.5rem, 6vw, 5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 2fr;
+            grid-template-rows: 260px 180px;
+            gap: 3px;
+        }
+
+        .g {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .g:nth-child(1) { grid-row: span 2; }
+        .g:nth-child(4) { grid-row: span 2; }
+
+        .g img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(25%) brightness(0.85);
+            transition: transform 0.7s cubic-bezier(.25,.46,.45,.94), filter 0.5s ease;
+        }
+
+        .g:hover img {
+            transform: scale(1.06);
+            filter: grayscale(0%) brightness(0.95);
+        }
+
+        .g::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid transparent;
+            transition: border-color 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .g:hover::after { border-color: rgba(201,165,90,0.35); }
+
+        /* ── DATE ────────────────────────────────────── */
+        .date-section {
+            padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+            display: flex;
+            align-items: center;
+            gap: clamp(1.5rem, 4vw, 4rem);
+            flex-wrap: wrap;
+        }
+
+        .date-vert {
+            font-family: var(--CS);
+            font-size: clamp(0.55rem, 1.2vw, 0.65rem);
+            letter-spacing: 0.4em;
+            color: var(--dim);
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        .date-big {
+            font-family: var(--C);
+            font-weight: 300;
+            font-size: clamp(7rem, 24vw, 22rem);
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            color: var(--ivory);
+        }
+
+        .date-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .date-month {
+            font-family: var(--C);
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(1.8rem, 5vw, 4rem);
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .date-year {
+            font-family: var(--CS);
+            font-size: clamp(0.9rem, 2.2vw, 1.4rem);
+            letter-spacing: 0.28em;
+            color: var(--dim);
+        }
+
+        /* ── EVENTS ──────────────────────────────────── */
+        .events-section {
+            padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 6vw, 5rem);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1.2rem, 3vw, 2.5rem);
+        }
+
+        .ev-card {
+            border: 1px solid var(--faint);
+            padding: clamp(1.8rem, 4vw, 3rem);
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.35s ease;
+        }
+
+        .ev-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.45s ease;
+        }
+
+        .ev-card:hover { border-color: rgba(201,165,90,0.2); }
+        .ev-card:hover::after { transform: scaleX(1); }
+
+        .ev-type {
+            font-family: var(--CS);
+            font-size: 0.58rem;
+            letter-spacing: 0.42em;
+            color: var(--gold);
+        }
+
+        .ev-name {
+            font-family: var(--C);
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+            color: var(--ivory);
+            line-height: 1.1;
+        }
+
+        .ev-address {
+            font-family: var(--DM);
+            font-size: clamp(0.73rem, 1.5vw, 0.8rem);
+            font-weight: 300;
+            color: var(--dim);
+            line-height: 1.9;
+        }
+
+        .ev-img {
+            width: 100%;
+            height: clamp(90px, 12vw, 150px);
+            object-fit: cover;
+            filter: brightness(0.7) grayscale(20%);
+            transition: filter 0.4s ease;
+        }
+
+        .ev-card:hover .ev-img { filter: brightness(0.85) grayscale(0%); }
+
+        .ev-time {
+            font-family: var(--CS);
+            font-size: clamp(0.85rem, 2vw, 1.1rem);
+            letter-spacing: 0.2em;
+            color: var(--ivory);
+            margin-top: auto;
+        }
+
+        .ev-map {
+            font-family: var(--CS);
+            font-size: 0.58rem;
+            letter-spacing: 0.28em;
+            color: var(--gold);
+            text-decoration: none;
+            opacity: 0.65;
+            transition: opacity 0.2s;
+        }
+        .ev-map:hover { opacity: 1; }
+
+        /* ── ITINERARY ───────────────────────────────── */
+        .itinerary-section {
+            padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+        }
+
+        .it-list {
+            list-style: none;
+            max-width: 560px;
+            margin-top: 2.5rem;
+        }
+
+        .it-row {
+            display: grid;
+            grid-template-columns: 68px 1px 1fr;
+            gap: 0 1.2rem;
+            align-items: stretch;
+        }
+
+        .it-time {
+            font-family: var(--CS);
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            color: var(--gold);
+            padding: 1.1rem 0;
+            text-align: right;
+            line-height: 1;
+            align-self: start;
+            padding-top: 1.35rem;
+        }
+
+        .it-track {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .it-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0.65;
+            flex-shrink: 0;
+            margin-top: 1.3rem;
+        }
+
+        .it-line {
+            width: 1px;
+            flex: 1;
+            background: rgba(201,165,90,0.15);
+        }
+
+        .it-text {
+            font-family: var(--DM);
+            font-size: clamp(0.75rem, 1.7vw, 0.84rem);
+            font-weight: 300;
+            color: var(--dim);
+            padding: 1.1rem 0;
+            line-height: 1.5;
+        }
+
+        /* ── DRESS CODE ──────────────────────────────── */
+        .dresscode-section {
+            padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 6vw, 5rem);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .dc-type {
+            font-family: var(--C);
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--ivory);
+        }
+
+        .dc-formal {
+            font-family: var(--CS);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            letter-spacing: 0.35em;
+            color: var(--gold);
+        }
+
+        .dc-note {
+            font-family: var(--DM);
+            font-size: clamp(0.72rem, 1.5vw, 0.78rem);
+            font-weight: 300;
+            color: var(--dim);
+            line-height: 1.7;
+            max-width: 380px;
+        }
+
+        /* ── GIFT ────────────────────────────────────── */
+        .gift-section {
+            padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 6vw, 5rem);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.9rem;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .gift-highlight {
+            font-family: var(--CS);
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            letter-spacing: 0.25em;
+            color: var(--gold);
+        }
+
+        .gift-body, .gift-note {
+            font-family: var(--DM);
+            font-weight: 300;
+            color: var(--dim);
+            line-height: 1.9;
+        }
+        .gift-body { font-size: clamp(0.8rem, 1.8vw, 0.88rem); }
+        .gift-note { font-size: clamp(0.68rem, 1.4vw, 0.74rem); opacity: 0.7; }
+
+        /* ── RSVP ────────────────────────────────────── */
+        .rsvp-section {
+            padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.2rem;
+        }
+
+        .rsvp-sub {
+            font-family: var(--DM);
+            font-size: clamp(0.78rem, 1.8vw, 0.86rem);
+            font-weight: 300;
+            color: var(--dim);
+            line-height: 1.9;
+            max-width: 380px;
+        }
+
+        .rsvp-confirm-label {
+            font-family: var(--CS);
+            font-size: 0.6rem;
+            letter-spacing: 0.4em;
+            color: var(--gold);
+            margin-top: 0.5rem;
+        }
+
+        .rsvp-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            width: 100%;
+            max-width: 260px;
+            margin-top: 0.5rem;
+        }
+
+        .rsvp-btn {
+            font-family: var(--CS);
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid rgba(240,234,220,0.18);
+            background: transparent;
+            color: var(--ivory);
+            cursor: pointer;
+            transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .rsvp-btn.yes:hover  { border-color: var(--gold); color: var(--gold); background: rgba(201,165,90,0.06); }
+        .rsvp-btn.no:hover   { border-color: rgba(240,234,220,0.35); background: rgba(240,234,220,0.04); }
+
+        /* ── FOOTER ──────────────────────────────────── */
+        .site-footer {
+            padding: clamp(4rem, 9vw, 7rem) clamp(1.5rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(201,165,90,0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .footer-quote {
+            font-family: var(--C);
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(0.9rem, 2.2vw, 1.15rem);
+            color: var(--dim);
+            line-height: 1.95;
+            max-width: 520px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-share {
+            font-family: var(--DM);
+            font-size: 0.7rem;
+            font-weight: 300;
+            color: rgba(240,234,220,0.28);
+            line-height: 1.7;
+            max-width: 360px;
+        }
+
+        .footer-hashtag {
+            font-family: var(--C);
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(2rem, 6vw, 3.8rem);
+            color: var(--ivory);
+            letter-spacing: -0.01em;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .f-social {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(240,234,220,0.14);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: border-color 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .f-social:hover { border-color: var(--gold); }
+
+        .footer-byline {
+            font-family: var(--CS);
+            font-size: 0.55rem;
+            letter-spacing: 0.35em;
+            color: rgba(240,234,220,0.18);
+            margin-top: 0.5rem;
+        }
+
+        /* ── ANIMATIONS ──────────────────────────────── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.85s ease, transform 0.85s ease;
+        }
+        .reveal.in { opacity: 1; transform: none; }
+
+        /* ── RESPONSIVE: TABLET 900px ───────────────── */
+        @media (max-width: 900px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: repeat(2, 220px);
+            }
+            .g:nth-child(1), .g:nth-child(4) { grid-row: span 1; }
+
+            .hero-deco { font-size: 30vw; opacity: 0.04; }
+        }
+
+        /* ── RESPONSIVE: TABLET 768px ───────────────── */
+        @media (max-width: 768px) {
+            /* Family */
+            .family-section { grid-template-columns: 1fr; gap: 2rem; }
+            .family-initial  { display: none; }
+
+            /* Events */
+            .events-section  { grid-template-columns: 1fr; }
+
+            /* Date */
+            .date-section    { gap: 0.8rem; }
+            .date-vert       { writing-mode: horizontal-tb; transform: none; }
+            .date-big        { font-size: clamp(6rem, 28vw, 14rem); }
+
+            /* Itinerary */
+            .it-row { grid-template-columns: 58px 1px 1fr; gap: 0 0.9rem; }
+
+            /* RSVP */
+            .rsvp-btns { max-width: 100%; width: 100%; padding: 0 1rem; }
+            .rsvp-btn  { width: 100%; }
+
+            /* Quote */
+            .quote-section { padding: 3rem 1.5rem; }
+            .quote-deco    { display: none; }
+
+            /* Countdown */
+            .cd-grid { gap: 1rem 2rem; }
+        }
+
+        /* ── RESPONSIVE: MOBILE 540px ───────────────── */
+        @media (max-width: 540px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: repeat(3, 150px);
+            }
+
+            /* Hide separators in countdown */
+            .cd-sep { display: none; }
+            .cd-grid { gap: 1rem 1.5rem; }
+            .cd-num  { font-size: clamp(2.8rem, 14vw, 5rem); }
+
+            /* Hero scroll hint hidden on small screens */
+            .hero-scroll-hint { display: none; }
+
+            /* Hero sub text wraps */
+            .hero-sub { flex-wrap: wrap; }
+            .hero-rule { display: none; }
+
+            /* Marquee text slightly larger */
+            .marquee-track span { letter-spacing: 0.28em; }
+
+            /* Date */
+            .date-section { flex-direction: column; align-items: flex-start; }
+            .date-big { font-size: clamp(5.5rem, 30vw, 10rem); }
+
+            /* Float back button smaller */
+            .float-back { font-size: 0.62rem; padding: 0.6rem 1.1rem; bottom: 1rem; right: 1rem; }
+
+            /* Gallery */
+            .gallery-grid { grid-template-rows: repeat(3, 130px); }
+        }
+
+        /* ── RESPONSIVE: SMALL 380px ─────────────────── */
+        @media (max-width: 380px) {
+            .hero-name   { font-size: clamp(3rem, 17vw, 5rem); }
+            .cd-num      { font-size: 2.6rem; }
+            .family-name { font-size: 1.8rem; }
+            .ev-name     { font-size: 1.5rem; }
+            .date-big    { font-size: 5rem; }
+            .it-row      { grid-template-columns: 52px 1px 1fr; gap: 0 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="float-back">← versión original</a>
+
+    <!-- ── HERO ──────────────────────────────────── -->
+    <section class="hero">
+        <div class="hero-deco" aria-hidden="true">XV</div>
+        <p class="hero-eyebrow">Mis XV Años</p>
+        <h1 class="hero-name">
+            <span class="line-1">Sofía</span>
+            <span class="line-2">Guadalupe</span>
+        </h1>
+        <div class="hero-sub">
+            <div class="hero-rule"></div>
+            <span class="hero-sub-text">Sábado · 18 de Julio · 2026 · Mier y Noriega, N.L.</span>
+        </div>
+        <div class="hero-scroll-hint">
+            <div class="scroll-bar"></div>
+            <span>scroll</span>
+        </div>
+    </section>
+
+    <!-- ── MARQUEE ────────────────────────────────── -->
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span>SÁBADO</span><span>·</span><span>18 DE JULIO</span><span>·</span>
+            <span>2026</span><span>·</span><span>MIS XV AÑOS</span><span>·</span>
+            <span>SOFÍA GUADALUPE</span><span>·</span><span>MIER Y NORIEGA</span><span>·</span>
+            <span>SAN ANTONIO DE PADUA</span><span>·</span><span>SALÓN DON PEDRO</span><span>·</span>
+            <span>SÁBADO</span><span>·</span><span>18 DE JULIO</span><span>·</span>
+            <span>2026</span><span>·</span><span>MIS XV AÑOS</span><span>·</span>
+            <span>SOFÍA GUADALUPE</span><span>·</span><span>MIER Y NORIEGA</span><span>·</span>
+            <span>SAN ANTONIO DE PADUA</span><span>·</span><span>SALÓN DON PEDRO</span><span>·</span>
+        </div>
+    </div>
+
+    <!-- ── QUOTE ──────────────────────────────────── -->
+    <section class="quote-section border-top reveal">
+        <div class="quote-deco" aria-hidden="true">"</div>
+        <p class="quote-body">Es como un sueño, un maravilloso sueño hecho realidad</p>
+    </section>
+
+    <!-- ── COUNTDOWN ──────────────────────────────── -->
+    <section class="countdown-section border-top reveal">
+        <p class="section-eyebrow" style="text-align:center;">Faltan</p>
+        <div class="cd-grid">
+            <div class="cd-cell">
+                <span class="cd-num" id="jDays">00</span>
+                <span class="cd-unit">Días</span>
+            </div>
+            <span class="cd-sep" aria-hidden="true">·</span>
+            <div class="cd-cell">
+                <span class="cd-num" id="jHours">00</span>
+                <span class="cd-unit">Horas</span>
+            </div>
+            <span class="cd-sep" aria-hidden="true">·</span>
+            <div class="cd-cell">
+                <span class="cd-num" id="jMinutes">00</span>
+                <span class="cd-unit">Minutos</span>
+            </div>
+            <span class="cd-sep" aria-hidden="true">·</span>
+            <div class="cd-cell">
+                <span class="cd-num" id="jSeconds">00</span>
+                <span class="cd-unit">Segundos</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FAMILY ─────────────────────────────────── -->
+    <section class="family-section border-top reveal">
+        <div class="family-initial" aria-hidden="true">S</div>
+        <div class="family-content">
+            <p class="section-eyebrow">Mis XV Años</p>
+            <h2 class="family-name">Sofía<br>Guadalupe</h2>
+            <div class="sep-line"></div>
+            <div class="family-group">
+                <p class="family-role">Mis padres</p>
+                <p class="family-names">David Duarte<br>&amp; Liliana Briones</p>
+            </div>
+            <div class="family-group">
+                <p class="family-role">Mis hermanas</p>
+                <p class="family-names">Dafne &amp; Samady</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── GALLERY ────────────────────────────────── -->
+    <section class="gallery-section border-top reveal">
+        <p class="section-eyebrow gallery-label">Galería</p>
+        <div class="gallery-grid">
+            <div class="g">
+                <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&h=900&fit=crop" alt="Foto 1" loading="lazy">
+            </div>
+            <div class="g">
+                <img src="https://images.unsplash.com/photo-1518611507436-f9221403cca2?w=600&h=400&fit=crop" alt="Foto 2" loading="lazy">
+            </div>
+            <div class="g">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=400&fit=crop" alt="Foto 3" loading="lazy">
+            </div>
+            <div class="g">
+                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=900&fit=crop" alt="Foto 4" loading="lazy">
+            </div>
+            <div class="g">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&h=400&fit=crop" alt="Foto 5" loading="lazy">
+            </div>
+            <div class="g">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=400&fit=crop" alt="Foto 6" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- ── DATE ───────────────────────────────────── -->
+    <section class="date-section border-top reveal">
+        <span class="date-vert">Sábado</span>
+        <span class="date-big">18</span>
+        <div class="date-stack">
+            <span class="date-month">Julio</span>
+            <span class="date-year">2026</span>
+        </div>
+    </section>
+
+    <!-- ── EVENTS ─────────────────────────────────── -->
+    <section class="events-section border-top reveal">
+        <div class="ev-card">
+            <p class="ev-type">Misa</p>
+            <h3 class="ev-name">San Antonio<br>de Padua</h3>
+            <p class="ev-address">Morelos #13 Col. Centro<br>Mier y Noriega, N.L.</p>
+            <img class="ev-img" src="https://images.unsplash.com/photo-1438032005730-c779502df39b?w=600&h=300&fit=crop" alt="Iglesia" loading="lazy">
+            <p class="ev-time">5:00 pm</p>
+            <a href="https://maps.google.com/?q=San+Antonio+de+Padua+Mier+y+Noriega+NL" target="_blank" class="ev-map">↗ ver ubicación</a>
+        </div>
+        <div class="ev-card">
+            <p class="ev-type">Recepción</p>
+            <h3 class="ev-name">Salón Eventos<br>Don Pedro</h3>
+            <p class="ev-address">Hidalgo S/N<br>Mier y Noriega, N.L.</p>
+            <img class="ev-img" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&h=300&fit=crop" alt="Salón" loading="lazy">
+            <p class="ev-time">6:00 pm</p>
+            <a href="https://maps.google.com/?q=Salon+Don+Pedro+Mier+y+Noriega+NL" target="_blank" class="ev-map">↗ ver ubicación</a>
+        </div>
+    </section>
+
+    <!-- ── ITINERARY ──────────────────────────────── -->
+    <section class="itinerary-section border-top reveal">
+        <p class="section-eyebrow">Programa</p>
+        <h2 class="section-heading">Itinerario</h2>
+        <ul class="it-list">
+            <li class="it-row"><span class="it-time">5:00 pm</span><div class="it-track"><div class="it-dot"></div><div class="it-line"></div></div><span class="it-text">Misa</span></li>
+            <li class="it-row"><span class="it-time">6:00 pm</span><div class="it-track"><div class="it-dot"></div><div class="it-line"></div></div><span class="it-text">Recepción</span></li>
+            <li class="it-row"><span class="it-time">6:30 pm</span><div class="it-track"><div class="it-dot"></div><div class="it-line"></div></div><span class="it-text">Entrada Quinceañera</span></li>
+            <li class="it-row"><span class="it-time">7:00 pm</span><div class="it-track"><div class="it-dot"></div><div class="it-line"></div></div><span class="it-text">Cena</span></li>
+            <li class="it-row"><span class="it-time">8:30 pm</span><div class="it-track"><div class="it-dot"></div><div class="it-line"></div></div><span class="it-text">Vals</span></li>
+            <li class="it-row"><span class="it-time">9:00 pm</span><div class="it-track"><div class="it-dot"></div><div class="it-line"></div></div><span class="it-text">Partida de pastel</span></li>
+            <li class="it-row"><span class="it-time">9:30 pm</span><div class="it-track"><div class="it-dot"></div><div class="it-line"></div></div><span class="it-text">Baile sorpresa y se abre la pista</span></li>
+            <li class="it-row"><span class="it-time">2:00 am</span><div class="it-track"><div class="it-dot"></div></div><span class="it-text">Termina la fiesta</span></li>
+        </ul>
+    </section>
+
+    <!-- ── DRESS CODE ─────────────────────────────── -->
+    <section class="dresscode-section border-top reveal">
+        <p class="section-eyebrow">Dress Code</p>
+        <p class="dc-type">Formal</p>
+        <p class="dc-note">(Color azul cielo reservado para la quinceañera)</p>
+    </section>
+
+    <!-- ── GIFT ───────────────────────────────────── -->
+    <section class="gift-section border-top reveal">
+        <p class="section-eyebrow">Sugerencia de regalo</p>
+        <h3 class="section-heading">Lluvia de sobres</h3>
+        <p class="gift-body">Mi mejor regalo es compartir contigo este gran día. Si deseas obsequiarme algo puedo sugerir la siguiente opción:</p>
+        <p class="gift-highlight">¡Lluvia de sobres!</p>
+        <p class="gift-note">(La lluvia de sobres es la tradición de regalar dinero en efectivo dentro de un sobre el día del evento)</p>
+    </section>
+
+    <!-- ── RSVP ───────────────────────────────────── -->
+    <section class="rsvp-section border-top reveal">
+        <p class="section-eyebrow">Confirmar asistencia</p>
+        <h2 class="section-heading">¿Nos acompañas?</h2>
+        <p class="rsvp-sub">Tu presencia es muy importante para mí. ¡Me encantaría contar contigo y celebrar este día!</p>
+        <p class="rsvp-confirm-label">Por favor confirma tu asistencia</p>
+        <div class="rsvp-btns">
+            <button class="rsvp-btn yes" id="jYes">Asistiré</button>
+            <button class="rsvp-btn no"  id="jNo">No asistiré</button>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ─────────────────────────────────── -->
+    <footer class="site-footer border-top reveal">
+        <p class="footer-quote">Hay momentos en la vida que son especiales por sí solos, compartirlos con las personas que quieres los convierte en momentos inolvidables.</p>
+        <p class="footer-share">Si deseas compartir tus fotos de la fiesta puedes postecarlas en mis redes sociales usando</p>
+        <p class="footer-hashtag">#15Sofia</p>
+        <div class="footer-socials">
+            <a href="#" class="f-social" aria-label="Instagram">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(240,234,220,0.65)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.7" fill="rgba(240,234,220,0.65)" stroke="none"/></svg>
+            </a>
+            <a href="#" class="f-social" aria-label="Facebook">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(240,234,220,0.65)"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+        </div>
+        <p class="footer-byline">Sofía Guadalupe · XV Años · 2026</p>
+    </footer>
+
+    <script>
+        // ── Countdown ──────────────────────────────
+        const EVT = new Date('2026-07-18T17:00:00');
+        function tick() {
+            const d = EVT - new Date();
+            if (d <= 0) return;
+            const pad = n => String(Math.floor(n)).padStart(2,'0');
+            document.getElementById('jDays').textContent    = pad(d/86400000);
+            document.getElementById('jHours').textContent   = pad((d%86400000)/3600000);
+            document.getElementById('jMinutes').textContent = pad((d%3600000)/60000);
+            document.getElementById('jSeconds').textContent = pad((d%60000)/1000);
+        }
+        tick(); setInterval(tick, 1000);
+
+        // ── RSVP ───────────────────────────────────
+        document.getElementById('jYes').addEventListener('click', function() {
+            this.textContent = '¡Nos vemos pronto!';
+            this.style.cssText += ';border-color:var(--gold);color:var(--gold);';
+            const no = document.getElementById('jNo');
+            no.style.opacity = '0.25'; no.disabled = true;
+        });
+        document.getElementById('jNo').addEventListener('click', function() {
+            this.textContent = 'Te extrañaremos';
+            this.style.borderColor = 'rgba(240,234,220,0.35)';
+            const yes = document.getElementById('jYes');
+            yes.style.opacity = '0.25'; yes.disabled = true;
+        });
+
+        // ── Scroll reveal ──────────────────────────
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+        }, { threshold: 0.06 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    </script>
+</body>
+</html>
