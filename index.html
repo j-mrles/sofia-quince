@@ -35,32 +35,6 @@
 
         img { display: block; max-width: 100%; }
 
-        /* ── FLOATING BACK BUTTON ────────────────────── */
-        .float-back {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            z-index: 9999;
-            background: var(--ivory);
-            color: var(--bg);
-            font-family: var(--CS);
-            font-size: 0.68rem;
-            font-weight: 500;
-            letter-spacing: 0.14em;
-            text-decoration: none;
-            padding: 0.7rem 1.3rem;
-            border-radius: 50px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.5);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-            white-space: nowrap;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .float-back:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 28px rgba(0,0,0,0.6);
-            background: var(--gold2);
-        }
-
         /* ── MUSIC BUTTON ───────────────────────────── */
         .music-btn {
             position: fixed;
@@ -86,7 +60,6 @@
             background: rgba(201,165,90,0.15);
         }
         .music-btn svg { width: 18px; height: 18px; fill: var(--gold); }
-        .float-back:active { transform: translateY(0); }
 
         /* ── HERO ────────────────────────────────────── */
         .hero {
@@ -996,9 +969,6 @@
             .date-section { flex-direction: column; align-items: flex-start; }
             .date-big { font-size: clamp(5.5rem, 30vw, 10rem); }
 
-            /* Float back button smaller */
-            .float-back { font-size: 0.62rem; padding: 0.6rem 1.1rem; bottom: 1rem; right: 1rem; }
-
             /* Gallery */
             .gallery-grid { grid-template-rows: repeat(3, 130px); }
         }
@@ -1016,7 +986,6 @@
 </head>
 <body>
 
-    <a href="javi.html" class="float-back">nueva versión →</a>
 
     <!-- ── HERO ──────────────────────────────────── -->
     <section class="hero">
@@ -1243,11 +1212,15 @@
             toggleIcons(playing);
         });
 
-        // Try autoplay on first user interaction if blocked
-        document.addEventListener('click', function autoplayOnce() {
+        // Start music on any user interaction (scroll, touch, mouse, click)
+        const startEvents = ['scroll', 'touchstart', 'mousemove', 'click', 'keydown'];
+        function startOnInteraction() {
             if (!playing) tryAutoplay();
-            document.removeEventListener('click', autoplayOnce);
-        }, { once: true });
+            startEvents.forEach(e => document.removeEventListener(e, startOnInteraction));
+            window.removeEventListener('scroll', startOnInteraction);
+        }
+        startEvents.forEach(e => document.addEventListener(e, startOnInteraction, { once: true, passive: true }));
+        window.addEventListener('scroll', startOnInteraction, { once: true, passive: true });
 
         tryAutoplay();
 
