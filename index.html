@@ -60,6 +60,32 @@
             box-shadow: 0 6px 28px rgba(0,0,0,0.6);
             background: var(--gold2);
         }
+
+        /* ── MUSIC BUTTON ───────────────────────────── */
+        .music-btn {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            z-index: 9999;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid var(--gold);
+            background: rgba(8,7,11,0.85);
+            color: var(--gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease, background 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .music-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(201,165,90,0.15);
+        }
+        .music-btn svg { width: 18px; height: 18px; fill: var(--gold); }
         .float-back:active { transform: translateY(0); }
 
         /* ── HERO ────────────────────────────────────── */
@@ -827,6 +853,7 @@
             gap: 1.2rem;
             position: relative;
             overflow: hidden;
+            background: #1a1820;
         }
 
         .site-footer::before {
@@ -1028,7 +1055,7 @@
     <section class="quote-section border-top reveal">
         <div class="section-bg"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&h=800&fit=crop&q=80" alt="" loading="lazy"></div>
         <div class="quote-deco" aria-hidden="true">"</div>
-        <p class="quote-body">Es como un sueño, un maravilloso sueño hecho realidad</p>
+        <p class="quote-body">Hoy dejo atrás una etapa llena de recuerdos, para comenzar un camino lleno de sueños por cumplir. Acompáñame a celebrar mis XV años.</p>
     </section>
 
     <!-- ── COUNTDOWN ──────────────────────────────── -->
@@ -1136,13 +1163,6 @@
         </ul>
     </section>
 
-    <!-- ── DRESS CODE ─────────────────────────────── -->
-    <section class="dresscode-section border-top reveal">
-        <p class="section-eyebrow">Dress Code</p>
-        <p class="dc-type">Formal</p>
-        <p class="dc-note">(Color azul cielo reservado para la quinceañera)</p>
-    </section>
-
     <!-- ── GIFT ───────────────────────────────────── -->
     <section class="gift-section border-top reveal">
         <p class="section-eyebrow">Sugerencia de regalo</p>
@@ -1166,7 +1186,7 @@
 
     <!-- ── FOOTER ─────────────────────────────────── -->
     <footer class="site-footer border-top reveal">
-        <p class="footer-quote">Hay momentos en la vida que son especiales por sí solos, compartirlos con las personas que quieres los convierte en momentos inolvidables.</p>
+        <p class="footer-quote">Un evento se vive tres veces: al soñarlo, al vivirlo y al recordarlo.</p>
         <p class="footer-share">Si deseas compartir tus fotos de la fiesta puedes postecarlas en mis redes sociales usando</p>
         <p class="footer-hashtag">#15Sofia</p>
         <div class="footer-socials">
@@ -1180,7 +1200,57 @@
         <p class="footer-byline">Sofía Guadalupe · XV Años · 2026</p>
     </footer>
 
+    <!-- ── MUSIC ──────────────────────────────────── -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="Bruno_Mars_-_Just_Way_You_Are_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
+    <button class="music-btn" id="musicToggle" aria-label="Toggle music">
+        <svg id="iconPause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        <svg id="iconPlay" viewBox="0 0 24 24" style="display:none"><polygon points="5,3 19,12 5,21"/></svg>
+    </button>
+
     <script>
+        // ── Music autoplay ────────────────────────
+        const music = document.getElementById('bgMusic');
+        const btnMusic = document.getElementById('musicToggle');
+        const iconPause = document.getElementById('iconPause');
+        const iconPlay = document.getElementById('iconPlay');
+        let playing = false;
+
+        function toggleIcons(isPlaying) {
+            iconPause.style.display = isPlaying ? 'block' : 'none';
+            iconPlay.style.display = isPlaying ? 'none' : 'block';
+        }
+
+        function tryAutoplay() {
+            music.play().then(() => {
+                playing = true;
+                toggleIcons(true);
+            }).catch(() => {
+                playing = false;
+                toggleIcons(false);
+            });
+        }
+
+        btnMusic.addEventListener('click', () => {
+            if (playing) {
+                music.pause();
+                playing = false;
+            } else {
+                music.play();
+                playing = true;
+            }
+            toggleIcons(playing);
+        });
+
+        // Try autoplay on first user interaction if blocked
+        document.addEventListener('click', function autoplayOnce() {
+            if (!playing) tryAutoplay();
+            document.removeEventListener('click', autoplayOnce);
+        }, { once: true });
+
+        tryAutoplay();
+
         // ── Countdown ──────────────────────────────
         const EVT = new Date('2026-07-18T17:00:00');
         function tick() {
